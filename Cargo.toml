@@ -16,3 +16,8 @@ lto = true
 opt-level = "z"   # optimise pour la taille
 codegen-units = 1 # meilleure optimisation possible
 panic = "abort"   # réduit le code de panic
+
+
+[[bin]]
+name = "RecolorImages"       # nom final de l'exécutable
+path = "src/main.rs"
