@@ -1,24 +1,28 @@
 [package]
-name = "convert_image_test"
+name = "recolor_image_app"
 version = "0.1.0"
 edition = "2024"
 authors = ["Glubus"]
 
 [dependencies]
 eframe = { version = "0.32.1", features = ["glow"] }
-egui = "0.32.1"
 egui_extras = "0.32.1"
-image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "bmp"] }
 rfd = "0.15"
 
 
 [profile.release]
 lto = true
-opt-level = "z"   # optimise pour la taille
-codegen-units = 1 # meilleure optimisation possible
-panic = "abort"   # réduit le code de panic
-
+opt-level = "s"
+codegen-units = 1
+panic = "abort"
+strip = true
 
 [[bin]]
 name = "RecolorImages"       # nom final de l'exécutable
 path = "src/main.rs"
+
+[package.metadata]
+description = "A small app to recolor images with egui"
+license = "MIT"
+repository = "https://github.com/Glubus/recolor_image_app"
