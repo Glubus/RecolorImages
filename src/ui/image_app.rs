@@ -1,5 +1,8 @@
+use crate::ui::{
+    image_panel::{apply_to_all_images, draw_image_panel_single},
+    toolbar::toolbar,
+};
 use eframe::egui;
-use crate::ui::{image_panel::{draw_image_panel_single, apply_to_all_images}, toolbar::toolbar};
 
 pub struct ImageData {
     pub path: std::path::PathBuf,

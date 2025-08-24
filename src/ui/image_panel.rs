@@ -1,6 +1,6 @@
-use eframe::egui;
-use crate::ui::image_app::ImageData;
 use crate::services::image_service::recolor;
+use crate::ui::image_app::ImageData;
+use eframe::egui;
 
 /// Dessine l'interface d'une seule image et applique le recolor
 pub fn draw_image_panel_single(ui: &mut egui::Ui, image: &mut ImageData, ctx: &egui::Context) {
@@ -8,12 +8,21 @@ pub fn draw_image_panel_single(ui: &mut egui::Ui, image: &mut ImageData, ctx: &e
     let blend_copy = image.blend;
 
     ui.horizontal(|ui| {
-        let (orig_tex, recolor_tex) = (image.original_texture.clone(), image.recolored_texture.clone());
+        let (orig_tex, recolor_tex) = (
+            image.original_texture.clone(),
+            image.recolored_texture.clone(),
+        );
 
         // Preview
         ui.vertical(|ui| {
-            if let Some(tex) = &orig_tex { ui.label("Original"); ui.image(tex); }
-            if let Some(tex) = &recolor_tex { ui.label("Recoloré"); ui.image(tex); }
+            if let Some(tex) = &orig_tex {
+                ui.label("Original");
+                ui.image(tex);
+            }
+            if let Some(tex) = &recolor_tex {
+                ui.label("Recoloré");
+                ui.image(tex);
+            }
         });
 
         // Paramètres couleur et blend
@@ -34,11 +43,18 @@ pub fn draw_image_panel_single(ui: &mut egui::Ui, image: &mut ImageData, ctx: &e
     image.recolored = image.original.clone();
     recolor(
         &mut image.recolored,
-        (image.color.r() as f32 / 255.0, image.color.g() as f32 / 255.0, image.color.b() as f32 / 255.0),
+        (
+            image.color.r() as f32 / 255.0,
+            image.color.g() as f32 / 255.0,
+            image.color.b() as f32 / 255.0,
+        ),
         image.blend,
     );
 
-    let size = [image.recolored.width() as usize, image.recolored.height() as usize];
+    let size = [
+        image.recolored.width() as usize,
+        image.recolored.height() as usize,
+    ];
     image.recolored_texture = Some(ctx.load_texture(
         image.path.to_string_lossy() + "_recolor",
         egui::ColorImage::from_rgba_unmultiplied(size, image.recolored.as_raw()),
@@ -52,10 +68,17 @@ pub fn apply_to_all_images(images: &mut [ImageData], color: egui::Color32, ctx: 
         img.recolored = img.original.clone();
         recolor(
             &mut img.recolored,
-            (color.r() as f32 / 255.0, color.g() as f32 / 255.0, color.b() as f32 / 255.0),
+            (
+                color.r() as f32 / 255.0,
+                color.g() as f32 / 255.0,
+                color.b() as f32 / 255.0,
+            ),
             img.blend,
         );
-        let size = [img.recolored.width() as usize, img.recolored.height() as usize];
+        let size = [
+            img.recolored.width() as usize,
+            img.recolored.height() as usize,
+        ];
         img.recolored_texture = Some(ctx.load_texture(
             img.path.to_string_lossy() + "_recolor",
             egui::ColorImage::from_rgba_unmultiplied(size, img.recolored.as_raw()),

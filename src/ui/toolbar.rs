@@ -1,7 +1,7 @@
+use crate::services::image_service::load_image;
+use crate::ui::image_app::ImageApp;
 use eframe::egui;
 use rfd::FileDialog;
-use crate::ui::image_app::ImageApp;
-use crate::services::image_service::load_image;
 
 pub fn toolbar(ui: &mut egui::Ui, app: &mut ImageApp, ctx: &egui::Context) {
     ui.horizontal(|ui| {
@@ -35,7 +35,10 @@ pub fn toolbar(ui: &mut egui::Ui, app: &mut ImageApp, ctx: &egui::Context) {
         if ui.button("Sauvegarder toutes les images").clicked() {
             if let Some(folder) = FileDialog::new().pick_folder() {
                 for img_data in &app.images {
-                    let filename = img_data.path.file_name().unwrap_or_else(|| std::ffi::OsStr::new("output.png"));
+                    let filename = img_data
+                        .path
+                        .file_name()
+                        .unwrap_or_else(|| std::ffi::OsStr::new("output.png"));
                     let save_path = folder.join(filename);
                     if let Err(err) = img_data.recolored.save(&save_path) {
                         eprintln!("Erreur en sauvegardant {}: {}", save_path.display(), err);

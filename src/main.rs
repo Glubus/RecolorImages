@@ -6,8 +6,6 @@ mod ui;
 use eframe::NativeOptions;
 use ui::image_app::ImageApp;
 
-
-
 fn main() {
     let options = NativeOptions::default();
 
