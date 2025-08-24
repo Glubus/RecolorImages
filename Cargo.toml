@@ -2,6 +2,7 @@
 name = "convert_image_test"
 version = "0.1.0"
 edition = "2024"
+authors = ["Glubus"]
 
 [dependencies]
 eframe = { version = "0.32.1", features = ["glow"] }
