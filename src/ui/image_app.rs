@@ -14,18 +14,10 @@ pub struct ImageData {
     pub blend: f32,
 }
 
+#[derive(Default)]
 pub struct ImageApp {
     pub images: Vec<ImageData>,
     pub apply_to_all: bool,
-}
-
-impl Default for ImageApp {
-    fn default() -> Self {
-        Self {
-            images: vec![],
-            apply_to_all: false,
-        }
-    }
 }
 
 impl eframe::App for ImageApp {
