@@ -1,4 +1,4 @@
-name: rosu-memory
+name: RecolorImages
 
 on:
   release:
